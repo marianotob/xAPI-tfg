@@ -1,3 +1,18 @@
+var player;
+var timer; // Timer interval 
+var tiempo;
+var idVideo= 'reRK_O1Vyp8';
+var velocidad;
+var tiempo_visto;
+var mute;
+var volumen;
+var URL;
+var calidad;
+var peso;
+var duracion;
+
+
+
 // 2. This code loads the IFrame Player API code asynchronously.
   var tag = document.createElement('script');
   tag.src = "https://www.youtube.com/iframe_api";
@@ -12,9 +27,9 @@
   "800", "500", //initial width and height of player
   "8.0.0",null, null, params, atts);
 
-  // 3. This function creates an <iframe> (and YouTube player)
-  //    after the API code downloads.
-  var player;
+  // 3. This function creates an <iframe> (and YouTube player) after the API code downloads.
+
+
   function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
       height: '360',
@@ -29,52 +44,39 @@
     });        
   }
 
-  // 4. The API will call this function when the video player is ready.
-  function onPlayerReady(event) {
-    event.target.playVideo();
-    player.addEventListener("onStateChange","onPlayerStateChange");
-  }
+    // 4. The API will call this function when the video player is ready.
+    function onPlayerReady(event) {
+        event.target.playVideo();
+    }
+
+    // 6. The API will call this function when the video player is onPlaybackQualityChange.
+    function onPlayerPlaybackQualityChange(event) {
+        console.log('cambio configuración');
+        }
+
+    // 7. The API will call this function when the video player is onError.
+    function onPlayerError(event) {
+    console.log('ERROR');
+    }
 
   // 5. The API calls this function when the player's state changes.
 
-  var tiempo;
-  var idVideo= 'reRK_O1Vyp8';
-  var velocidad;
-  var tiempo_visto;
-
   function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PLAYING) {
-      console.log('playing');
-      velocidad=player.getPlaybackRate();
-      tiempo_visto=player.getCurrentTime();
-      sonido=player.isMuted();
-      volumen=player.getVolume();
-      URL=player.getVideoUrl();
-      calidad=player.getPlaybackQuality();
-      peso=player.getVideoLoadedFraction();
-      //videoStarted();
+        console.log('playing');
+        timer = setInterval(getProgress,1000);
     }
     if (event.data == YT.PlayerState.PAUSED) {
-      //if (lastPlayerState == YT.PlayerState.PLAYING) {
-        //videoWatched(lastPlayerTime, player.getCurrentTime());
-      //} 
-/*         else if (lastPlayerState == YT.PlayerState.PAUSED) {
-        console.log('HOLA SEXY');
-        videoSkipped(lastPlayerTime, player.getCurrentTime());
-      } */
+        clearInterval(timer);
       console.log('paused');
-      //videoPaused();
     }
     if (event.data == YT.PlayerState.ENDED) {
-      console.log('ended');
-      duracion=player.getDuration();
-      console.log('velocidad:'+ velocidad);
-      console.log('duracion:'+ duracion);
-      console.log('sonido:'+ sonido);
-      console.log('volumen:'+ volumen);
-      console.log('calidad:'+ calidad);
-      guardarVisualizado(idVideo,velocidad,tiempo_visto);
-      //videoEnded();
+        clearInterval(timer);
+        console.log('ended');
+        getData();
+        ModificarVisualizado(tiempo_visto);
+        //guardarVisualizado(idVideo,velocidad,tiempo_visto);
+        //videoEnded();
     }
     if (event.data == YT.PlayerState.CUED) {
       console.log('cued');
@@ -88,51 +90,6 @@
     lastPlayerTime = player.getCurrentTime();
     lastPlayerState = event.data;
   } 
-
-
-  // 6. The API will call this function when the video player is onPlaybackQualityChange.
-  function onPlayerPlaybackQualityChange(event) {
-    console.log('cambio configuración');
-  }
-
-  // 7. The API will call this function when the video player is onError.
-  function onPlayerError(event) {
-    console.log('ERROR');
-  }
-
-
-
-/*   var statement = new TinCan.Statement({
-      actor: {
-          mbox: "mailto:info@tincanapi.com"
-      },
-      verb: {
-          id: "http://adlnet.gov/expapi/verbs/experienced"
-      },
-      target: {
-          id: "http://rusticisoftware.github.com/TinCanJS"
-      }
-  }); */
-
-/* function videoWatched(start, finish) {//start and finish in seconds
-  window.tincan.sendStatement({
-      actor: Cards.getActor(),
-      verb: {
-          id: "http://activitystrea.ms/schema/1.0/watch",
-          display: {'en-US': 'watched'}
-      },
-      target: {
-          id: 'http://www.youtube.com/watch?v=' + 'reRK_O1Vyp8',
-          definition: {
-              name: { "en-US": videoTitle + " from " + timeString(start) + " to " + timeString(finish) },
-              extensions: {
-                  "http://demo.watershedlrs.com/tincan/extensions/start_point": timeString(start),
-                  "http://demo.watershedlrs.com/tincan/extensions/end_point": timeString(finish)
-              }
-          }
-      }          
-  });
-} */
 
 /*video statements*/
 
@@ -210,3 +167,50 @@ function send_statement(){
   // Dispatch the statement to the LRS  
   var result = ADL.XAPIWrapper.sendStatement(statement);  
   }  
+
+
+
+
+
+  //algoritmos
+
+  //porcentaje de visionado de vídeo de YouTube
+  function getProgress(){
+    progress = Math.round(player.getCurrentTime() / player.getDuration() * 100);
+    getTimestamp ();
+    console.log(progress);
+    }
+
+
+function getData(){
+    velocidad=player.getPlaybackRate();
+    tiempo_visto=player.getCurrentTime();
+    mute=player.isMuted();
+    volumen=player.getVolume();
+    URL=player.getVideoUrl();
+    calidad=player.getPlaybackQuality();
+    peso=player.getVideoLoadedFraction();
+    duration = player.getDuration();
+}
+
+
+
+function getTimestamp () {
+    var hours, minutes, seconds, milliseconds,
+      timestamp = new Date(Date.now());
+
+    hours = (timestamp.getHours() > 9 ? timestamp.getHours() : '0' + timestamp.getHours());
+    minutes = (timestamp.getMinutes() > 9 ? timestamp.getMinutes() : '0' + timestamp.getMinutes());
+    seconds = (timestamp.getSeconds() > 9 ? timestamp.getSeconds() : '0' + timestamp.getSeconds());
+    milliseconds = (
+      timestamp.getMilliseconds().toString().length > 1 ?
+        (
+          timestamp.getMilliseconds().toString().length > 2 ?
+            timestamp.getMilliseconds() :
+            '0' + timestamp.getMilliseconds()
+        ) :
+        '00' + timestamp.getMilliseconds()
+    );
+        console.log(hours + ':' + minutes + ':' + seconds + ':' + milliseconds);
+    return hours + ':' + minutes + ':' + seconds + ':' + milliseconds;
+}

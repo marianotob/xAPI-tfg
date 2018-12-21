@@ -10,13 +10,8 @@ router.use(bodyParser.urlencoded({ extended: false })); // support encoded bodie
 
 
 router.post('/visualizado', function(request, response) {
-
 	var visualizadoData = {
-		velocidad: request.body.velocidad,
 		tiempoVisto: request.body.tiempoVisto,
-		sonido: request.body.sonido,
-		volumen: request.body.volumen,
-		cambioCalidad: request.body.cambioCalidad,
 		completado: request.body.completado,
 		nPausas: request.body.nPausas,
 		nCambios: request.body.nCambios,
@@ -27,6 +22,21 @@ router.post('/visualizado', function(request, response) {
 		response.status(200).json(data);	
 		});
 		
+});
+
+
+router.put('/visualizado/:id', function(request, response) {
+	var visualizadoData = {
+		tiempoVisto: request.body.tiempoVisto,
+		completado: request.body.completado,
+		nPausas: request.body.nPausas,
+		nCambios: request.body.nCambios,
+		VIDEO_idVideo: request.body.VIDEO_idVideo
+	};
+	visualizadoModel.updateVisualizado(visualizadoData, request.params.id, function(error, data) {
+			response.status(200).json({"Mensaje":"Actualizado"});	
+		});
+			
 });
 
 module.exports = router;
