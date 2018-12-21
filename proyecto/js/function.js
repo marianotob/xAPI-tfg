@@ -1,4 +1,30 @@
+var myUser;
+
+
 //generación de usuarios
+function random() {
+    return Math.random().toString(36).substr(2); // Eliminar `0.`
+};
+ 
+function token() {
+    return random() + random(); // Para hacer el token más largo
+};
+
+function newUser(){
+    let ram= random();
+    let myToken= token();
+    let xhr = new XMLHttpRequest(),
+        url = 'http://localhost:3000/api/user/';
+
+    var params = "idUser="+myToken; 
+    xhr.open("POST",url,true);
+    xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+    xhr.send(params);
+    myUser=myToken;
+    return false;
+}   
+ 
+
 
 
 
@@ -25,13 +51,15 @@ function allvideos(){
     xhr.send();
 }  
 
+//visualizaciones
 
-function crearVisualizado(id){
+function newVisualise(id){
     let xhr = new XMLHttpRequest(),
-        url = 'http://localhost:3000/api/visualizado/';
+        url = 'http://localhost:3000/api/visualise/';
 
-    var params = "VIDEO_idVideo="+id; 
-
+    var params = "VIDEO_idVideo="+id+"&USER_idUser="+myUser; 
+/*     var params = "velocidad="+vel+"&tiempoVisto="+tv+"&VIDEO_idVideo="+id;  */
+console.log(params);
     xhr.open("POST",url,true);
     xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
     xhr.send(params);

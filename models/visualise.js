@@ -1,12 +1,10 @@
 var connection = require('../config/connection');
 
-var visualizado = {
-  velocidad: Number,
-};
+var visualise = {};
 
-visualizado.insertVisualizado = function(data, callback) {
+visualise.insertVisualise = function(data, callback) {
   if(connection) {
-    sql = 'INSERT INTO visualizado SET ';
+    sql = 'INSERT INTO visualise SET ';
     for (var key in data)
       if (typeof data[key]!== 'undefined')
         sql += key + ' = "' + data[key] + '",'; 
@@ -22,7 +20,7 @@ visualizado.insertVisualizado = function(data, callback) {
   }
 }
 
-visualizado.updateVisualizado = function(data, id, callback) {
+visualise.updateVisualizado = function(data, id, callback) {
   if(connection) {
    var sql = 'UPDATE Visualizado SET ';
    for (var key in data)
@@ -40,4 +38,4 @@ visualizado.updateVisualizado = function(data, id, callback) {
  }
 }
 
-module.exports = visualizado;
+module.exports = visualise;

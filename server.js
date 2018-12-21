@@ -100,6 +100,8 @@ process.on('uncaughtException', function(err) {
 //Routes
 
 app.use('/api', require('./routes/videoRoutes'));
-app.use('/api', require('./routes/visualizadoRoutes'));
+app.use('/api', require('./routes/visualiseRoutes'));
+app.use('/api', require('./routes/userRoutes'));
+
 
 
