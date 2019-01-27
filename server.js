@@ -20,9 +20,23 @@ https.createServer(options,app).listen(8001, () => {
 });
 
 
-app.get('/', (req, res) => {
+/* app.get('/', (req, res) => {
  res.sendfile('./proyecto/youtube.html');
-});
+}); */
+
+app.get('/', (req, res) => {
+  res.sendfile('./proyecto/galeria.html');
+ });
+ app.use(express.static('./proyecto' + '/public'));
+
+app.get('/youtube', (req, res) => {
+ res.sendfile('./proyecto/youtube.html');
+}); 
+
+app.get('/estilo', (req, res) => {
+  res.sendfile('./proyecto/estilo.css');
+ }); 
+
 app.get('/products/:id', cors(), function (req, res, next) {
   res.json({msg: 'This is CORS-enabled for a Single Route'})
 });
@@ -84,6 +98,13 @@ app.get('/xapi-launch.js', function(req, res){
   res.contentType('application/js');
   res.sendfile('./' + './proyecto/xAPIWrapper/src/xapi-launch.js');
 });
+
+app.get('/chart.js', function(req, res){
+  res.contentType('application/js');
+  res.sendfile('./' + './proyecto/js/Chart.js');
+});
+
+
 
 
 //Start server

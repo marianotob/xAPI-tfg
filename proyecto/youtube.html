@@ -4,7 +4,13 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>LSE</title>
+    <title>LSE video</title>
+    <link rel="stylesheet" type="text/css" href="./estilo"> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
     <script type='text/javascript' src="https://localhost:8001/function.js"></script>
     <script type='text/javascript' src="https://localhost:8001/apiYoutube.js"></script>
@@ -18,10 +24,17 @@
     <script type="text/javascript" src="https://localhost:8001/xapistatement.js"></script>
     <script type="text/javascript" src="https://localhost:8001/xapiwrapper.js"></script>
     <script type="text/javascript" src="https://localhost:8001/xapi-launch.js"></script>
+    <script type="text/javascript" src="https://localhost:8001/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    
   </head>
   
-  <body onload="newUser(),newVisualise('reRK_O1Vyp8');">
-    <section>
+  <body class="body" onload="newUser(),newVisualise('reRK_O1Vyp8'),canvas();">
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1">Videos LSE</span>
+    </nav>
+
+    <section class="video" >
           <article>
               <template>
                   <div>
@@ -30,187 +43,15 @@
               </template>
               <script>allvideos();</script>
           </article>
-          <button type="button" onclick="send_statement()">Send Statements</button>
+         <!--  <button type="button" onclick="send_statement()">Send Statements</button> -->
       </section>
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. --> 
-    <div id="player"></div>
-    <p id="progress"></p>
+    <section class="row">
+        <div id="player" class="col-md-4"></div>
+        <p id="progress"></p>
+        <canvas class="col-md-4" id="myChart"></canvas>
+
+    </section>
+
   </body>
 </html>
-
-
-
-<!-- <script>
-  // 2. This code loads the IFrame Player API code asynchronously.
-  var tag = document.createElement('script');
-  tag.src = "https://www.youtube.com/iframe_api";
-  var firstScriptTag = document.getElementsByTagName('script')[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-
-  params = { allowScriptAccess: 'always' };
-  atts = { allowScriptAccess: 'always' };
-  swfobject.embedSWF("https://www.youtube.com/v/" +'reRK_O1Vyp8' + "?enablejsapi=1&playerapiid=ytplayer&version=3",
-  "ytapiplayer",
-  "800", "500", //initial width and height of player
-  "8.0.0",null, null, params, atts);
-
-  // 3. This function creates an <iframe> (and YouTube player)
-  //    after the API code downloads.
-  var player;
-  function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
-      height: '360',
-      width: '640',
-      videoId: 'reRK_O1Vyp8',
-      events: {
-        'onReady': onPlayerReady,
-        'onStateChange': onPlayerStateChange,
-        'onPlaybackQualityChange': onPlayerPlaybackQualityChange,
-        'onError': onPlayerError
-      }
-    });        
-  }
-
-  // 4. The API will call this function when the video player is ready.
-  function onPlayerReady(event) {
-    event.target.playVideo();
-    player.addEventListener("onStateChange","onPlayerStateChange");
-  }
-
-  // 5. The API calls this function when the player's state changes.
-
-  var tiempo;
-
-  function onPlayerStateChange(event) {
-    if (event.data == YT.PlayerState.PLAYING) {
-      console.log('playing');
-      velocidad=player.getPlaybackRate();
-      tiempo_visto=player.getCurrentTime();
-      sonido=player.isMuted();
-      volumen=player.getVolume();
-      URL=player.getVideoUrl();
-      calidad=player.getPlaybackQuality();
-      peso=player.getVideoLoadedFraction();
-      videoStarted();
-    }
-    if (event.data == YT.PlayerState.PAUSED) {
-      //if (lastPlayerState == YT.PlayerState.PLAYING) {
-        console.log('HOLA SEXY');
-        videoWatched(lastPlayerTime, player.getCurrentTime());
-        console.log('HOLA SEXY2');
-      //} 
-/*         else if (lastPlayerState == YT.PlayerState.PAUSED) {
-        console.log('HOLA SEXY');
-        videoSkipped(lastPlayerTime, player.getCurrentTime());
-      } */
-      console.log('paused');
-      //videoPaused();
-    }
-    if (event.data == YT.PlayerState.ENDED) {
-      console.log('ended');
-      duracion=player.getDuration();
-      console.log('velocidad:'+ velocidad);
-      console.log('duracion:'+ duracion);
-      console.log('sonido:'+ sonido);
-      console.log('volumen:'+ volumen);
-      console.log('calidad:'+ calidad);
-      //videoEnded();
-    }
-    if (event.data == YT.PlayerState.CUED) {
-      console.log('cued');
-    }
-    if (event.data == YT.PlayerState.BUFFERING) {
-      console.log('buffering ');
-    } 
-    if (event.data == YT.PlayerState.UNSTARTED) {
-      console.log('unstarted');
-    }
-    lastPlayerTime = player.getCurrentTime();
-    lastPlayerState = event.data;
-  } 
-
-
-  // 6. The API will call this function when the video player is onPlaybackQualityChange.
-  function onPlayerPlaybackQualityChange(event) {
-    console.log('cambio configuración');
-    console.log(statement);
-  }
-
-  // 7. The API will call this function when the video player is onError.
-  function onPlayerError(event) {
-    console.log('ERROR');
-  }
-
-
-
-  var statement = new TinCan.Statement({
-      actor: {
-          mbox: "mailto:info@tincanapi.com"
-      },
-      verb: {
-          id: "http://adlnet.gov/expapi/verbs/experienced"
-      },
-      target: {
-          id: "http://rusticisoftware.github.com/TinCanJS"
-      }
-  });
-
-function videoWatched(start, finish) {//start and finish in seconds
-  window.tincan.sendStatement({
-      actor: Cards.getActor(),
-      verb: {
-          id: "http://activitystrea.ms/schema/1.0/watch",
-          display: {'en-US': 'watched'}
-      },
-      target: {
-          id: 'http://www.youtube.com/watch?v=' + 'reRK_O1Vyp8',
-          definition: {
-              name: { "en-US": videoTitle + " from " + timeString(start) + " to " + timeString(finish) },
-              extensions: {
-                  "http://demo.watershedlrs.com/tincan/extensions/start_point": timeString(start),
-                  "http://demo.watershedlrs.com/tincan/extensions/end_point": timeString(finish)
-              }
-          }
-      }          
-  });
-}
-
-/*video statements*/
-
-
-function videoStarted(){
-  //tinCan.sendstatement ('played',false,false);
-  var tincan = new TinCan ({
-    recordStores: [
-        {
-            endpoint: "https://cloud.scorm.com/tc/public/",
-            username: "<Test User>",
-            password: "<Test User's Password>",
-            allowFail: false
-        }]});
-  tincan.sendStatement({
-    actor: {
-        mbox: "mailto:info@tincanapi.com"
-    },
-    verb: {
-        id: "http://adlnet.gov/expapi/verbs/attempted"
-    },
-    target: {
-        id: "http://rusticisoftware.github.com/TinCanJS"
-    }});
-    console.log('Mariano');
-}
-function videoPaused(){
-sendstatement ('paused',false,false);
-}
-function videoEnded(){
-sendstatement ('terminated',false,false);
-}
-/*     function videoWatched(start, finish) {//start and finish in seconds
-  sendstatement ('watched',seconds2time(parseInt(start)),seconds2time(parseInt(finish)));
-} */
-function videoSkipped(start, finish) {//start and finish in seconds
-sendstatement ('skipped',seconds2time(start),seconds2time(finish));
-}  
-</script> -->

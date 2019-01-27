@@ -64,6 +64,28 @@ var duracion;
   function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PLAYING) {
         console.log('playing');
+        videoStarted();
+          //define the xapi statement being sent  
+  var statement = {  
+    "actor": {  
+        "mbox": "ngavchxhrgkmvhk8cu902a",  
+        "name": "User",  
+        "objectType": "Agent"  
+    },  
+    "verb": {  
+        "id": "http://example.com/xapi/interacted",  
+        "display": {"en-US": "interacted"}  
+    },  
+    "object": {  
+        "id": "http://example.com/button_example",  
+        "definition": {  
+            "name": {"en-US": "Button example"},  
+            "description": {"en-US": "Example xAPI Button"}  
+        },  
+        "objectType": "Activity"  
+    }  
+}; //end statement definition  
+console.log(statement);
         timer = setInterval(getProgress,1000);
     }
     if (event.data == YT.PlayerState.PAUSED) {
@@ -115,6 +137,7 @@ function videoStarted(){
         id: "http://rusticisoftware.github.com/TinCanJS"
     }});
     console.log('Mariano');
+    console.log(tincan);
 }
 function videoPaused(){
 sendstatement ('paused',false,false);
