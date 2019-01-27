@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>practica1</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/fontello.css">
+    <script type='text/javascript' src="script/functions.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body onload="comprobarUsuario(),comprobarPoderComentar();">
+
+    <header>
+        <picture>
+        <source media="(min-width: 480px)" srcset="logo2.png">
+        <img src="logo1.png" alt="logo">
+        </picture>
+        <div>
+            
+            <h1>Cotilleos Gañanes</h1>
+            <p>Lugar donde reir con cualquier imagen y olvidarte de todo</p>
+        </div>
+        
+    </header>
+    <input type="checkbox" id="ckb-menu">
+    <nav>
+       <ul id="menuprincipal"></ul>
+    </nav>
+    
+    <section>
+        <h2>Entrada</h2>
+        <article>
+            <h2>Informacion</h2>
+            <template>
+                <div>
+                    <h3></h3>
+                    <p></p>
+                    <p></p>
+                    <a href="#allphotos"><span class="icon-picture"></span></a>
+                    <a href="#allcomments"><span class="icon-commenting"></span></a>
+                    <time datetime="2017-02-10T09:32+02:00"></time>   
+                </div>
+            </template>
+            <script>verEntradaCompleta();</script>
+        </article>
+
+        <a id="allphotos"><h2>Fotos</h2></a>
+        <div>
+            <template>
+               <article>
+                    <h3></h3>
+                    <figure>
+                        <img src=""  alt="imagen" class="vertodo">
+                        <figcaption class="vertodo">
+                        </figcaption>
+                    </figure>
+                </article> 
+            </template>
+        </div>
+        <script>verFotosEntrada();</script>
+    </section>
+
+    <section>
+        <a id="allcomments"><h2>Comentarios</h2></a>
+        <template>
+            <article >
+                <div>
+                    <h4><span class="icon-commenting"></span></h4>
+                    <div>
+                    <p></p>
+                    <p class="completo"></p> 
+                    </div>
+                    <a onclick="" ></a>
+                    <time datetime="2017-02-10T09:32+02:00"></time>  
+                </div> 
+            </article>
+        </template>
+        <script>mostrarComentariosID();</script>
+        </section>
+       <section></section>
+    <footer>
+    <time datetime=2017>&copy;20 de Febrero 2017</time>
+    <a href="acerca.html">acerca de</a>
+    
+    </footer>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>practica1</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/fontello.css">
+    <script type='text/javascript' src="script/functions.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body onload="comprobarUsuario(),denegarAcceso();">
+    <header>
+        <picture>
+        <source media="(min-width: 480px)" srcset="logo2.png">
+        <img src="logo1.png" alt="logo">
+        </picture>
+        <div>
+            <h1>Cotilleos Gañanes</h1>
+            <p>Lugar donde reir con cualquier imagen y olvidarte de todo</p>
+        </div>
+    </header>
+    <input type="checkbox" id="ckb-menu">
+    <nav>
+       <ul id="menuprincipal"></ul> 
+    </nav>
+    <section>
+        <h2>Nueva Entrada</h2>
+        <form onsubmit=" return nuevaEntrada(event);">
+            <fieldset>
+                <h3>Datos Entrada</h3>
+                <div>
+                    <label for="Titulo">Título </label>
+                    <input type="text" name="Titulo" id="Titulo" maxlength="200" autofocus required>
+                </div> 
+                <div>
+                    <label for="descripcion">Descripción </label>
+                    <textarea rows="2" cols="36" name="comment" id="descripcion" required></textarea>
+                </div>
+                <div>
+                <button onclick="agregaFoto();">Añadir imagen</button>
+                </div>
+                <input type="submit" name="aceptar" value="Enviar">
+                <h2>Añadir fotos</h2>
+                <template>
+                     <article class="sendfoto">
+                        <h4>foto</h4>
+                        <div >
+                            <input type="file" accept="image/*" onchange="mostrarFoto(this)" required>
+                            <img src="images.png" alt="No hay imagen" name="fotopost" onclick="this.parentNode.querySelector('[type=file]').click();" width="350">
+                            <textarea placeholder="Descripcion aquí" required></textarea>
+                        </div>
+                        <button onclick="eliminarFoto(this);">Eliminar</button>
+                    </article>
+                </template>
+                <article class="sendfoto">
+                    <h4>foto</h4>
+                    <div >
+                        <input type="file" accept="image/*" onchange="mostrarFoto(this)" required>
+                        <img src="images.png" alt="No hay imagen" onclick="this.parentNode.querySelector('[type=file]').click();" width="350">
+                        <textarea placeholder="Descripcion aquí" required></textarea>
+                    </div>
+                </article>  
+            </fieldset>
+        </form>
+    </section>
+    <footer>
+    <time datetime=2017>&copy;20 de Febrero 2017</time>
+    <a href="acerca.html">acerca de</a>
+    </footer>
+    
+</body>
+</html>

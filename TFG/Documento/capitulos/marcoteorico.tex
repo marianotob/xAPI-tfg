@@ -1,0 +1,158 @@
+\chapter{Marco Teórico}
+\label{marcoteorico}
+
+El contenido de este capítulo es una especie de muestrario de cosas que puedes hacer con \LaTeX.  Por ejemplo, incluir una cita bibliográfica   \cite{BOE_IM_UA} dentro del texto. En esta página de demostración también puedes encontrar información útil acerca de cómo escribir con  \LaTeX.\footnote{En http://metodos.fam.cie.uva.es/~latex/apuntes/apuntes.html hay unos buenos apuntes al respecto.}
+
+Hacer una lista es simple en \LaTeX. Para ello has de crear un entorno (así se llama) itemize con
+\begin{verbatim}
+\begin{itemize}
+...
+\end{itemize}
+\end{verbatim}
+Y dentro de esa estructura, añadir cada elemento de la lista precedido de 
+\begin{verbatim}
+\item primer item de lista
+\item segundo item de lista
+...
+\item ultimo item de lista
+\end{verbatim}
+\section{Elaboración de listas.}
+
+Es importante que revises este texto tal como aparece en la plantilla y relaciones el aspecto que tiene el PDF final con cómo está escrito el documento \LaTeX.
+
+Aquí va una lista:
+\begin{itemize}
+    \item Ingeniería Informática.
+    \item Ingeniería Sonido e Imagen en Telecomunicación.
+    \item Ingeniería Multimedia.
+    \begin{itemize}
+         \item Mención: Creación y ocio digital.
+         \item Mención: Gestión de Contenidos.
+    \end{itemize}
+\end{itemize}
+
+Ahora veremos otra estructura más: las tablas.
+
+\section{Inserción de tablas}
+
+Aquí va una tabla\footnote{En http://www.tablesgenerator.com/ se puede encontrar un generador On-Line de tablas para \LaTeX} para que se vea cómo insertar una tabla simple dentro del documento.
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{lllll}
+&columna A&columna B&columna C\\
+\hline
+fila 1&fila 1, columna A & fila 1, columna B & fila 1, columna C\\
+fila 2&fila 2, columna A & fila 2, columna B & fila 2, columna C\\
+fila 3&fila 3, columna A & fila 3, columna B & fila 3, columna C\\ \hline
+\end{tabular}
+\end{center}
+\caption{Ejemplo de tabla.}
+\label{tabladeejemplo}
+\end{table}
+
+\LaTeX usa un sistema de parámetros para ``decorar'' las tablas. Puedes consultar estos parámetros en la tabla \ref{tabla_parametros} de la página \pageref{tabla_parametros}. La tabla se ubicará donde, a juicio de \LaTeX, menos moleste por lo que puede no aparecer necesariamente donde se ha insertado en el texto original. 
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|c|p{0.8\textwidth}|}
+\hline
+Parámetro & \multicolumn{1}{c|}{Significado} \\ \hline
+\texttt{h} & Situa el elemento flotante \emph{preferentemente}
+(es decir, si es posible) en la situación exacta donde se incluye este \\
+\texttt{t} & Situa el elemento en la parte de arriba de la página \\
+\texttt{b} & Situa el elemento en la parte de abajo de la página \\
+\texttt{p} & Situa el elemento en una página aparte dedicada sólo a
+elementos flotantes; en el caso del formato \texttt{article},
+ésta se situa al final del documento, mientras que para al book es
+colocada al final de cada capítulo \\ \hline
+\end{tabular}
+\end{center}
+\caption{Parámetros optativos de los entornos flotantes}
+\label{tabla_parametros}
+\end{table}
+
+
+
+\section{Inserción de figuras}
+
+Las figuras son un caso un poco especial ya que \LaTeX busca el mejor lugar para ponerlas, no siendo necesariamente el ligar donde está la referencia. Por ello es importante añadirle un ``caption'' y un ``label'' para poder hacer referencia a ellas en el párrafo correspondiente. Nosotros ponemos la referencia a la figura \ref{logo_im} que está en la página \pageref{logo_im}. justo aquí debajo, pero \LaTeX puede que la ubique en otro lugar.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.25]{imagenes/logoim.jpg}
+\caption{Logo de Ingeniería  Multimedia.}
+\label{logo_im}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.25]{imagenes/logoeps.jpg}
+\caption{Logo de la EPS.}
+\label{logo_eps}
+\end{center}
+\end{figure}
+
+\section{Inserción de código}
+A veces tendrás que insertar algún pedazo de código fuente para explicar algo relacionado con él. No sustituyas explicaciones con enormes listados de código. Si pones algo de código en tu TFG que sea para demostrar algo o explicar alguna solución.
+
+\LaTeX te ayuda a escribir código de manera que su presentación tenga las marcas y tabulaciones propias de este tipo de texto. Para ello, debes poner el código que escribas DENTRO de un entorno  que se llama ``listings''.  La plantilla ya tiene una serie de instrucciones para incluir el paquete ``listings'' y añadirle algunos modificadores por lo que no tienes que incluirlo tú. Simplemente, mete tu código en el entorno ``lstlisting'' y ya está. Puedes indicar el lenguaje en el que está escrito el código y así \LaTeX lo mostrará mejor. Veamos un ejemplo en la figura \ref{C_code}:
+
+Si pones 
+\begin{verbatim}
+\begin{lstlisting}[style=C, caption={ejemplo código C},label=C_code]
+#include <stdio.h>
+int main(int argc, char* argv[]) {
+  puts("Hola mundo!");
+}
+\end{lstlisting}
+\end{verbatim}
+
+El resultado será:
+\begin{lstlisting}[style=C, caption={ejemplo código C},label=C_code]
+#include <stdio.h>
+int main(int argc, char* argv[]) {
+  puts("Hola mundo!");
+}
+\end{lstlisting}
+
+Por supuesto, puedes mejorar esta presentación utilizando mas modificadores. Esta información y mucha más puede ser encontrada en \cite{listing_packagge} y en \cite{heinz1listings}.
+
+Otro ejemplo, ahora para mostrar código PHP, sería escribir en tu fichero \LaTeX lo siguiente:
+\begin{verbatim}
+ \begin{lstlisting}[style=PHP, caption={ejemplo código PHP},label=PHP_code]
+ /* 
+Ejemplo de código en PHP para escribir tu primer programa en este lenguaje
+Copia este código en tu ordenador y ejecútalo
+*/
+<html>
+  <head>
+    <title>Prueba de PHP</title>
+  </head>
+  <body>
+    <?php echo '<p>Hola Mundo</p>'; ?> //esto lo escribe TODO el mundo
+  </body>
+</html>
+ \end{lstlisting}
+\end{verbatim}
+ 
+ y el resultado es: (ver listado \ref{PHP_code})
+ 
+ \begin{lstlisting}[style=PHP, caption={ejemplo código PHP},label=PHP_code]
+/* 
+Ejemplo de código en PHP para escribir tu primer programa en este lenguaje. Copia este código en tu ordenador y ejecútalo
+*/
+ <html>
+  <head>
+    <title>Prueba de PHP</title>
+  </head>
+  <body>
+    <?php echo '<p>Hola Mundo</p>'; ?> //esto lo escribe TODO el mundo
+  </body>
+</html>
+ \end{lstlisting}
+ 
+ Observa cómo \LaTeX ha puesto los comentarios en gris y ajustado el código para que se muestre más claro.
+ 
+ Si quieres añadir código en otros lenguajes, cambia el comando que dice ``style=nombredellenguaje'' por ``languaje=nombredelnuevolenguaje''.

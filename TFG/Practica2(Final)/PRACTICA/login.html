@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>practica1</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/fontello.css">
+    <script src="script/functions.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body onload="comprobarUsuario(), denegarAcceso2();">
+    <header>
+        <picture>
+        <source media="(min-width: 480px)" srcset="logo2.png">
+        <img src="logo1.png" alt="logo">
+        </picture>
+        <div>
+            <h1>Cotilleos Gañanes</h1>
+            <p>Lugar donde reir con cualquier imagen y olvidarte de todo</p>
+        </div>
+    </header>
+    <input type="checkbox" id="ckb-menu">
+    <nav>
+       <ul id="menuprincipal"></ul> 
+    </nav>
+    <section>
+        <h2>Iniciar Sesion</h2>
+        <form onsubmit=" return hacerLogin(this);">
+            <fieldset>
+                    <h3>Mi zona cliente</h3>
+                    <div>
+                    <label for="login">Login </label>
+                    <input type="text" name="login" id="login" pattern="^[a-zA-Z][A-Za-z0-9]{2,19}$" autofocus required>
+                    </div> 
+                     
+                    <div>
+                    <label for="pwd">Contraseña </label>
+                    <input type="password" name="pwd" id="pwd" required>
+                    </div>
+
+                    <input type="submit" >
+            </fieldset> 
+        </form>
+    </section>
+    <footer>
+    <time datetime=2017>&copy;20 de Febrero 2017</time>
+    <a href="acerca.html">acerca de</a>
+    </footer>
+    
+</body>
+</html>

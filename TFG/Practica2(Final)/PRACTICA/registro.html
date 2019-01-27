@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>practica1</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/fontello.css">
+    <script src="script/functions.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body onload="comprobarUsuario();">
+    <header>
+        <picture>
+        <source media="(min-width: 480px)" srcset="logo2.png">
+        <img src="logo1.png" alt="logo">
+        </picture>
+        <div>
+            <h1>Cotilleos Gañanes</h1>
+            <p>Lugar donde reir con cualquier imagen y olvidarte de todo</p>
+        </div>
+    </header>
+    <input type="checkbox" id="ckb-menu">
+    <nav>
+       <ul id="menuprincipal"></ul> 
+    </nav>
+    <section>
+        <h2>Registro</h2>
+        <form onsubmit=" return hacerRegistro(this);">
+            <fieldset>
+                <h3>Nuevo Cliente</h3>
+                <div>
+                    <label for="login">Login </label>
+                    <input type="text" name="login" id="login" pattern="^[a-zA-Z][A-Za-z0-9]{3,19}$" onchange="validaUsuario();" autofocus required>
+                </div>
+                <div>
+                    <label for="pwd">Contraseña </label>
+                    <input type="password" name="pwd" id="pwd" pattern="^[A-Za-z0-9_-]{5,20}$"  required>
+                </div>
+                <div>
+                    <label for="pwd2">Repetir Contraseña </label>
+                    <input type="password" name="pwd2" id="pwd2" onchange="validaPassword();" required>
+                </div>
+                <div>
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" required>
+                </div>
+                <div>
+                    <label for="email">Email </label>
+                    <input type="email" name="email" id="email" required>
+                </div>
+                    <input type="submit" name="aceptar" id="aceptar" value="registrar">
+                
+            </fieldset>
+            
+        </form>
+    </section>
+    <footer>
+    <time datetime=2017>&copy;20 de Febrero 2017</time>
+    <a href="acerca.html">acerca de</a>
+    </footer>
+    
+</body>
+</html>
